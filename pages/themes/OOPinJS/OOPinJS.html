@@ -74,7 +74,7 @@
 	</section>
 </section>
 
-
+<section><h1>OOP in a nutshell</h1></section>
 <section><h2>OOP in a nutshell</h2>
 	<section><h3>Overview</h3>
 		<!-- TODO: new image -->
@@ -105,31 +105,32 @@
 		<dd>Objects are <span class="note">mutable</span></dd>
 	</dl>
 	</section>
+	<section><h3>OOP in JavaScript</h3>
+		<table>
+			<tr>
+				<th>Java</th>
+				<th>JavaScript</th>
+			</tr>
+			<tr>
+				<td>Classes</td>
+				<td>Functions</td>
+			</tr>
+			<tr>
+				<td>Constructors</td>
+				<td>Functions</td>
+			</tr>
+			<tr>
+				<td>Methods</td>
+				<td>Functions</td>
+			</tr>
+		</table>
+		<hr>
+		<p>Tables excerpt from Douglas Crockford's "<a href="http://www.crockford.com/javascript/inheritance.html">Classical Inheritance in JavaScript</a>"</p>
+	</section>
 </section>
 
-<section><h2>OOP in JavaScript</h2>
-	<table>
-		<tr>
-			<th>Java</th>
-			<th>JavaScript</th>
-		</tr>
-		<tr>
-			<td>Classes</td>
-			<td>Functions</td>
-		</tr>
-		<tr>
-			<td>Constructors</td>
-			<td>Functions</td>
-		</tr>
-		<tr>
-			<td>Methods</td>
-			<td>Functions</td>
-		</tr>
-	</table>
-	<hr>
-	<p>Tables excerpt from Douglas Crockford's "<a href="http://www.crockford.com/javascript/inheritance.html">Classical Inheritance in JavaScript</a>"</p>
-</section>
 
+<section><h1>Object creation</h1></section>
 <section><h2>Object creation</h2>
 	<section>
 		<dl class="fa">
@@ -181,14 +182,124 @@
 			<dd>To much "copy-paste" syntax for multitude instances</dd>
 		</dl>
 	</section>
-	<section id="constructor"><h3>Constructor Function</h3>
-	<dl class="fa">
-		<dt>Constructor function is a function which constructs objects.</dt>
-		<dt>Every function in JS can act as a Constructor function.</dt>
-		<dt>What make difference is the <span class="note">way you call</span> the constructor function!</dt>
-	</dl>
+	<section><h3>The Factory Pattern</h3>
+		<p>"Factory" - a function which creates object instances!</p>
+		<pre><code rel="JS" class="js">
+			var carFactory = function(model, year){
+				var obj = {};
+
+				obj.model = model;
+				obj.year = year;
+
+				return obj;
+			}
+		</code></pre>
 	</section>
-	<section><h3>Constructor Function</h3>
+	<section><h3>Factory Pattern - simple example</h3>
+		<pre><code rel="JS" class="js">
+			var objFactory = function(name){
+				var obj = {};
+
+				obj.name = name;
+				obj.sayName = function(){
+					console.log(`I'm object: ${obj.name}`)
+				};
+
+				return obj;
+			}
+
+			var obj1 = objFactory('Object 1');
+			var obj2 = objFactory('Object 2');
+			obj1.sayName();
+			obj2.sayName();
+			// I'm object: Object 1
+			// I'm object: Object 2
+		</code></pre>
+	</section>
+	<section><h3>Factory Pattern - flexibility example</h3>
+		<pre><code rel="JS" class="js">
+			"use strict";
+			// aux constructors
+			function AudioPlayer(name){
+				this.name = name;
+				this.play = ()=>{
+					console.log(`${this.name} is playing as Audio!`);
+				}
+			}
+			function VideoPlayer(name){
+				this.name = name;
+				this.play = ()=>{
+					console.log(`${this.name} is playing as Video!`);
+				}
+			}
+
+			// the factory
+			function mediaPlayerMaker(name) {
+				if(name.match(/\.(?:mp3|ogg|flack)$/i) ){
+					return new AudioPlayer(name);
+				}
+				if (name.match(/\.(?:mp4|avi|divx)$/i)) {
+					return new VideoPlayer(name);
+				}
+			}
+
+			// the instancies
+			const player1 = mediaPlayerMaker('time_lapse.mp3');
+			const player2 = mediaPlayerMaker('micahel_nyman_band_live.avi');
+
+			// the usage
+			player1.play();
+			player2.play();
+
+			// time_lapse.mp3 is playing as Audio!
+			// micahel_nyman_band_live.avi is playing as Video!
+		</code></pre>
+	</section>
+	<section style="font-size: .8em"><h3>The Factory as mechanism to enforce encapsulation</h3>
+		<dl class="fa">
+			<dt>As we saw, the only way to enforce encapsulation in JavaScript is by function scopes and closures </dt>
+			<dt>And Factory is just a function!</dt>
+		</dl>
+		<pre><code rel="JS" class="js">
+			"use strict";
+			var objFactory = function(name){
+				// private members
+				var name = name;
+				// public
+				var obj = {
+					sayName: () =>console.log(`I'm object: ${name}`),
+				};
+
+				return obj;
+			}
+
+			var obj1 = objFactory('Object 1');
+			obj1.sayName();
+			console.log(`obj1.name: ${obj1.name}`);
+			// I'm object: Object 1
+			// obj1.name: undefined
+		</code></pre>
+	</section>
+	<section><h3>Factory Pattern: Pros&Cons</h3>
+		<dl class="fa">
+			<dt>Pros</dt>
+			<dd>Great flexibility and implementation independence.</dd>
+			<dd>Can create objects as literal, by constructor, by <code>Object.create()</code></dd>
+			<dd></dd>
+			<dt>Cons</dt>
+			<dd>Not familiar for "classical" OOP programmers</dd>
+		</dl>
+	</section>
+	<section id="constructor"><h3>Constructor Function</h3>
+		<dl class="fa">
+			<dt>Constructor function is a function which constructs objects. I.e. definesobjects and their features</dt>
+			<dt>JavaScript emulates classes via constructor functions</dt>
+			<dt class="note">Every function in JS can act as a Constructor function.</dt>
+			<dt>What make difference is the <span class="note">way you call</span> the constructor function!</dt>
+			<dt>The naming convention for a constructor function is to start it with <b>capital letter</b> - this convention is used to make constructor functions easier to recognize in code.</dt>
+		</dl>
+	</section>
+	<section><h3>Constructor Function - example</h3>
 		<pre><code rel="JS">
 			// the Constructor Function:
 			var AppleMaker = function( color, prices ){
@@ -219,6 +330,11 @@
 			<dt>Cons</dt>
 			<dd><code>new</code> and <code>this</code> problems!</dd>
 		</dl>
+	</section>
+	<section><h3>The Object.create() method</h3>
+		<p>The <code>Object.create()</code> method creates a new object with the specified prototype object and properties.</p>
+		<p>Object prototypes are discussed further.</p>
+		<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/create">Object.create()</a>
 	</section>
 </section>
 
@@ -322,6 +438,15 @@
 			obj.sayID();
 			// 1
 		</code></pre>
+	</section>
+</section>
+
+<section style="font-size: .8em"><h2>Exercises</h2>
+	<section><h3>The Factory Pattern - exercise (smartLogger)</h3>
+		<dl class="fa">
+			<dt>TASK: implement a <code>logger</code> object, whose methods <code>log()</code> and <code>dir()</code> works on top of the standard <code>console</code> methods, but log a message if the script is running under developers/test environment, and outputs nothing, if the script is started on production environment.
+			<dt>Tips: you can simulate a development or production environment by using the simple  <a href="https://www.npmjs.com/package/live-server">live-server</a>. Start it with two instances on different posts and test your logger on them </dt>
+		</dl>
 	</section>
 </section>
 

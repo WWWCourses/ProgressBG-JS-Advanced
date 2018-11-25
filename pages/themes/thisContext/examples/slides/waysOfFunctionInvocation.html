@@ -75,7 +75,7 @@
 				this.id = id;
 				this.saidHello = 0;
 
-				__sayHello = function(){
+				var __sayHello = function(){
 					this.saidHello++;
 				};
 				this.sayHello = function(){
@@ -96,7 +96,7 @@
 				this.id = id;
 				this.saidHello = 0;
 
-				__sayHello = function(that){
+				var __sayHello = function(that){
 					that.saidHello++;
 				};
 				this.sayHello = function(){
@@ -130,7 +130,7 @@
 				this.id = id;
 				this.saidHello = 0;
 
-				__sayHello = function(){
+				var __sayHello = function(){
 					this.saidHello++;
 				};
 
@@ -181,7 +181,7 @@
 		},
 	}
 
-	examples.throughBind();
+	examples.asConstructorPitfallSolution();
 </script>
 </body>
 </html>
