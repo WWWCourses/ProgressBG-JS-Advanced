@@ -21,17 +21,30 @@
 			"plaintext",
 			"python"
 		],
-		"spellchecker.ignoreRegExp": [
-			"/<head>.*<\/head>/s",
+		"spellright.ignoreRegExps": [
+			"/<head>.*<\\/head>/mg",
 		],
 		"editor.renderLineHighlight": "all",
 		"workbench.colorTheme": "Solarized Light",
 		"workbench.colorCustomizations": {
 
 		},
-		"bracket-pair-colorizer-2.rulerPosition": "Left",
+		"bracket-pair-colorizer-2.rulerPosition": "Right",
 		"bracket-pair-colorizer-2.showBracketsInGutter": true,
 		"bracket-pair-colorizer-2.showVerticalScopeLine": true,
 		"bracket-pair-colorizer-2.showHorizontalScopeLine": false,
+		"liveServer.settings.multiRootWorkspaceName": "ProgressBG-JS-Advanced",
+		"htmlhint.options": {
+			"tagname-lowercase": true,
+			"attr-lowercase": true,
+			"attr-value-double-quotes": true,
+			"doctype-first": true,
+			"tag-pair": true,
+			"spec-char-escape": false,
+			"id-unique": true,
+			"src-not-empty": true,
+			"attr-no-duplication": true,
+			"title-require": true
+		},
 	}
 }
