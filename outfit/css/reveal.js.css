@@ -67,6 +67,9 @@
   box-shadow: 0 0 5em 5em rgb(0, 43, 64);
   /*width: 100vmax;*/
 }
+.reveal section dl.fa{
+  font-size: .8em;
+}
 .reveal section dl.fa>dt{
   font-weight: normal;
   margin: .5em 0 0 0;
