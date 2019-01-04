@@ -145,15 +145,71 @@
 		},
 	};
 
-	var abstractFactory = {
-		'tournament': function(){
+	var factory = {
+		'simpleFactory': function(){
 		//▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾//
+			// aux constructors
+			function AudioPlayer(name){
+			  this.name = name;
+			  this.play = ()=>{
+			    console.log(`${this.name} is playing on Audio Player!`);
+			  }
+			}
+			function VideoPlayer(name){
+			  this.name = name;
+			  this.play = ()=>{
+			    console.log(`${this.name} is playing on Video Player!`);
+			  }
+			}
 
+			// the factory
+			function mediaPlayerMaker(name) {
+			  if(name.match(/\.(?:mp3|ogg|flack)$/i) ){
+			    return new AudioPlayer(name);
+			  }else if (name.match(/\.(?:mp4|avi|divx)$/i)) {
+			    return new VideoPlayer(name);
+			  }
+			}
+
+			// the instancies
+			const player1 = mediaPlayerMaker('time_lapse.mp3');
+			const player2 = mediaPlayerMaker('micahel_nyman_band_live.avi');
+
+			// the usage
+			player1.play();
+			player2.play();
 		//▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴//
 		},
+		'encapsulated':function(){
+		//▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾▾//
+			var accountFactory = function(balance){
+				// private members
+				var balance = balance;
+
+				// public
+				var obj = {
+					getBalance: ()=>console.log(`Balnace = ${balance}`),
+					setBalance: (b)=>balance = b,
+				};
+
+				return obj;
+			}
+
+			var obj1 = accountFactory(999999999);
+			obj1.getBalance();
+
+			// let's try to change the balance directly:
+			obj1.balance = 0;
+			obj1.getBalance();
+
+			// let's try to change the balance through the setter:
+			obj1.setBalance(0);
+			obj1.getBalance();
+		}
+		//▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴▴//
 	}
 
-	modules.asLiteral();
+	factory.encapsulated();
 </script>
 </body>
 </html>

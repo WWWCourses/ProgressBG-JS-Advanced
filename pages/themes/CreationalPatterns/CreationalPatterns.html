@@ -24,7 +24,7 @@
 <body>
 	<div class="reveal default center" data-transition-speed="default" data-background-transition="default">
 		<div class="top_links">
-			<a class="home_link" href="/ProgressBG-JS-Advanced/index.html#Course_Intro" target="_top"><i class="fa fa-home"></i></a>
+			<a class="home_link" href="/ProgressBG-JS-Advanced/index.html#CreationalPatterns" target="_top"><i class="fa fa-home"></i></a>
 			<span class="help_link" href="#"><i class="fa fa-question"></i></span>
 			<div class="help_text">
 				<div><span>N/Space</span><span>Next Slide</span></div>
@@ -44,7 +44,7 @@
 ##################### SLIDES START #####################
 ########################################################
 -->
-<section><h1>Creational Patterns</h1></section>
+<section><h1>Design Patterns Overview.<br>Creational Patterns.</h1></section>
 <section data-transition="zoom">
 	<div class="copyright">
 		<div class="note">
@@ -63,69 +63,85 @@
 </section>
 
 
-<section><h2>about</h2>
-	<dl class="fa">
-		<dt>Creational design patterns focus on object creation mechanisms</dt>
-		<dt>Summaries best practices for object creation suitable for different, common, situations</dt>
-		<dt>Removes the potential complexity in a project</dt>
-		<dt>Some of the patterns that fall under this category are: Factory, Abstract, Prototype, Singleton and Builder</dt>
-	</dl>
+<section data-min="5"><h1>What are design patterns?</h1></section>
+<section><h2>What are design patterns?</h2>
+  <section><h3>History</h3>
+  	<p>From the 1977 book on architecture: "A Pattern Language: Towns, Buildings, Construction"</p>
+  	<blockquote class="note">Each pattern describes a
+				problem that occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice.
+			</blockquote>
+  </section>
+  <section><h3>In computer science</h3>
+  	<dl class="fa">
+  		<dt>The Gang Of Four book</dt>
+  		<dd>"Design Patterns: Elements of Reusable Object-Oriented Software"</dd>
+  		<dd>Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides</dd>
+  	</dl>
+  </section>
 </section>
 
+<section data-min="5"><h1>Creational design patterns</h1></section>
+<section><h2>Creational design patterns</h2>
+  <section><h3>About</h3>
+  	<dl class="fa">
+  		<dt>Creational design patterns focus on object creation mechanisms</dt>
+  		<dt>Summaries best practices for object creation suitable for different, common, situations</dt>
+  		<dt>Removes the potential complexity in a project</dt>
+  		<dt>Some of the patterns that fall under this category are: Factory, Abstract, Prototype, Singleton and Builder</dt>
+  	</dl>
+  </section>
+  <section><h3>Create new object</h3>
+  	<dl class="fa">
+  		<dt>Three main ways in JS:</dt>
+  	</dl>
+  	<pre><code rel="JS" class="js">
+  			// by object literal
+  			const obj1 = {}
+
+  			// by Object.create method
+  			const obj2 = Object.create(null);
+
+  			// by Object constructor
+  			const obj3 = new Object()
+  		</code></pre>
+  </section>
+
+</section>
+
+<section data-min="5"><h1>The Factory Pattern</h1></section>
 <section data-notes="2h"><h2>The Factory Pattern</h2>
 	<section><h3>The Factory Pattern</h3>
 		<dl class="fa">
-			<dt>"Factory" - a function which creates object instances! </dt>
-			<dt>Abstract the object creation:</dt>
-			<dd>Create different objects, depending on the input</dd>
-			<dd>Create objects as literal, by constructor, by <code>Object.create()</code></dd>
-			<dt>Great flexibility and implementation independence.</dt>
+			<dt>The Factory Pattern deals with the problem of creating objects (we can think of them as 'products') without the need to specify the exact class of object being created.</dt>
+			<dt>I.e. this pattern abstracts the object creation:</dt>
+			<dt>It offers great flexibility and implementation independence.</dt>
 		</dl>
 	</section>
-	<section><h3>Factory Pattern - simple example</h3>
+	<section><h3>Factory Pattern - example</h3>
 		<pre><code rel="JS" class="js">
 			"use strict";
-			var objFactory = function(name){
-				var obj = {};
-				obj.name = name;
-				obj.sayName = () =>console.log(`I'm object: ${obj.name}`);
 
-				return obj;
-			}
-
-			var obj1 = objFactory('Object 1');
-			var obj2 = objFactory('Object 2');
-			obj1.sayName();
-			obj2.sayName();
-			// I'm object: Object 1
-			// I'm object: Object 2
-		</code></pre>
-	</section>
-	<section><h3>Factory Pattern - flexibility example</h3>
-		<pre><code rel="JS" class="js">
-			"use strict";
 			// aux constructors
 			function AudioPlayer(name){
-				this.name = name;
-				this.play = ()=>{
-					console.log(`${this.name} is playing as Audio!`);
-				}
+			  this.name = name;
+			  this.play = ()=>{
+			    console.log(`${this.name} is playing on Audio Player!`);
+			  }
 			}
 			function VideoPlayer(name){
-				this.name = name;
-				this.play = ()=>{
-					console.log(`${this.name} is playing as Video!`);
-				}
+			  this.name = name;
+			  this.play = ()=>{
+			    console.log(`${this.name} is playing on Video Player!`);
+			  }
 			}
 
 			// the factory
 			function mediaPlayerMaker(name) {
-				if(name.match(/\.(?:mp3|ogg|flack)$/i) ){
-					return new AudioPlayer(name);
-				}
-				if (name.match(/\.(?:mp4|avi|divx)$/i)) {
-					return new VideoPlayer(name);
-				}
+			  if(name.match(/\.(?:mp3|ogg|flack)$/i) ){
+			    return new AudioPlayer(name);
+			  }else if (name.match(/\.(?:mp4|avi|divx)$/i)) {
+			    return new VideoPlayer(name);
+			  }
 			}
 
 			// the instancies
@@ -136,8 +152,8 @@
 			player1.play();
 			player2.play();
 
-			// time_lapse.mp3 is playing as Audio!
-			// micahel_nyman_band_live.avi is playing as Video!
+			// time_lapse.mp3 is playing on Audio Player!
+			// micahel_nyman_band_live.avi is playing on Video Player!
 		</code></pre>
 	</section>
 	<section><h3>The Factory as mechanism to enforce encapsulation</h3>
@@ -146,39 +162,50 @@
 			<dt>And Factory is just a function!</dt>
 		</dl>
 		<pre><code rel="JS" class="js">
-			"use strict";
-			var objFactory = function(name){
+			var accountFactory = function(balance){
 				// private members
-				var name = name;
+				var balance = balance;
+
 				// public
 				var obj = {
-					sayName: () =>console.log(`I'm object: ${name}`),
+					getBalance: ()=>console.log(`Balnace = ${balance}`),
+					setBalance: (b)=>balance = b,
 				};
 
 				return obj;
 			}
 
-			var obj1 = objFactory('Object 1');
-			obj1.sayName();
-			console.log(`obj1.name: ${obj1.name}`);
-			// I'm object: Object 1
-			// obj1.name: undefined
+			var obj1 = accountFactory(999999999);
+
+			// let's try to change the balance directly:
+			obj1.balance = 0;
+			obj1.getBalance();
+			// Balnace = 999999999
+
+			// let's try to change the balance through the setter:
+			obj1.setBalance(0);
+			obj1.getBalance();
+			// Balnace = 0
 		</code></pre>
 	</section>
 	<section><h3>The Factory Pattern - exercise (smartLogger)</h3>
 		<dl class="fa">
-			<dt>TASK: implement a <code>logger</code> object, whose methods <code>log()</code> and <code>dir()</code> works on top of the standard <code>console</code> methods, but log a message if the script is running under developers/test environment, and outputs nothing, if the script is started on production environment.
-			<dt>Tips: you can simulate a development or production environment by using the simple  <a href="https://www.npmjs.com/package/live-server">live-server</a>. Start it with two instances on different posts and test your logger on them </dt>
+			<dt>Implement a <code>logger</code> object, whose methods <code>log()</code> and <code>dir()</code> works on top of the standard <code>console</code> methods, but log a message only if the script is running under Dev environment and outputs nothing, if the script is started on Prod environment.
+			<dt>For simplicity, lets assume that our Dev environment will be distinguished from Prod by port in the URL. For instance, if the port is 8080 we assume that we are under Dev. env. Else - we can assume we are under Prod env.</dt>
+			<dt>Tips: you can simulate a development or production environment by using the simple  <a href="https://www.npmjs.com/package/live-server">live-server</a>. Start it with two instances on different ports and test your logger on them.</dt>
 		</dl>
 	</section>
 </section>
+
+<section data-min="5"><h1>The Singleton Pattern</h1></section>
 <section data-notes="2h"><h2>The Singleton Pattern</h2>
 	<section><h3>about</h3>
 		<dl class="fa">
-			<dt>Perhaps the most overused pattern, though it has fallen out of favor in recent years.</dt>
-			<dt>Singleton provides protection against accidentally creating multiple copies of a complex object</dt>
+			<dt>Singleton provides protection against accidentally creating multiple copies of a complex object.</dt>
 			<dt>Allows deferral of object instantiation until the first use</dt>
+			<dt>It's main usage is for managing the global application state and namespacing.</dt>
 			<dt class="note">In short, the main idea of the Singleton is to have only one instance of a specific class</dt>
+			<dt>Perhaps the most overused pattern, though it has fallen out of favor in recent years.</dt>
 		</dl>
 	</section>
 	<section><h3>usage</h3>
@@ -351,6 +378,7 @@
 		</dl>
 	</section>
 </section>
+
 
 
 

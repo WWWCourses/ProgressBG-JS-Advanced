@@ -65,11 +65,11 @@
 </section>
 
 <section><h2>Mixins</h2>
-	<section><h3>about</h3>
+	<section><h3>About</h3>
 		<dl class="fa">
-			<dt>Mixin Pattern represents a class that defines a set of functions relating to a type</dt>
-			<dt>Mixins classes are considered <span class="note">abstract</span>, as they will not themselves be instantiated</dt>
-			<dt>Mixins functions are intended to be copied (or borrowed ) from other object constructors</dt>
+			<dt>Mixin Pattern represents <span class="note">a class that defines a set of functions intended to be inherited from other sub classes</span>.</dt>
+			<dt>Mixins classes are considered <span class="note">abstract</span>, as they will not themselves be instantiated.</dt>
+			<dt>A class can inherit functionality from multiple mixins through multiple inheritance.</dt>
 		</dl>
 	</section>
 	<section><h3>example</h3>
@@ -158,7 +158,7 @@
 			}
 		</code></pre>
 	</section>
-	<section><h3>Prototype Object decoration</h3>
+	<section><h3>Example</h3>
 		<pre><code rel="JS" class="js">
 			// The constructor to decorate
 			function Laptop() {
@@ -190,7 +190,7 @@
 
 		</code></pre>
 	</section>
-	<section><h3>Decorator by Composition</h3>
+	<section><h3 class="advanced">Decorator by Composition</h3>
 		<pre><code rel="JS" class="js">
 			function compositDecorate(component) {
 				const protoComp = Object.getPrototypeOf(component);
@@ -212,7 +212,7 @@
 			}
 		</code></pre>
 	</section>
-	<section><h3>Implementing decorators with jQuery</h3>
+	<!-- <section><h3>Implementing decorators with jQuery (opt)</h3>
 		<pre><code rel="JS" class="js">
 			var decoratorApp = decoratorApp || {};
 
@@ -255,6 +255,74 @@
 			          + decoratorApp.printObj(decoratorApp.defaults));
 		</code></pre>
 		<p>from <a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/#revealingmodulepatternjavascript">Learning JavaScript Design Patterns: Decorators With jQuery</a></p>
+	</section> -->
+	<section><h3>Function decorators - simple</h3>
+		<dl class="fa">
+			<dt>Let's look at the most simple case - decorating a function without arguments:</dt>
+		</dl>
+		<pre><code rel="JS" class="js">
+			// just a helper function
+			function getCurrentDate(){
+			  let d = new Date();
+			  return `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}`
+			}
+
+			// decorator function defined with function declaration
+			function decorator(f){
+			  console.log(`${f.name} was called on ${getCurrentDate()}`);
+			  return f
+			}
+
+			// decorator function defined with lambda (arrow function syntax)
+			const lambdaDecorator = f => {
+			  console.log(`${f.name} was called on ${getCurrentDate()}`);
+			  return f
+			}
+
+			// the function to be decorated
+			function howdy(){
+			  console.log(`Howdy World!`);
+			}
+
+			// decorate the function
+			howdy = lambdaDecorator(howdy)
+
+			// use the decorated function
+			howdy();
+		</code></pre>
+	</section>
+	<section><h3>Function decorators - with arguments</h3>
+		<dl class="fa">
+			<dt>Now, we can look at the more common case - decorating a function with arguments:</dt>
+		</dl>
+		<pre><code rel="JS" class="js">
+			// decorator function defined with function declaration
+			function logDecorator(f){
+			  return  function(...args){
+			    console.log(`${f.name} called with args: ${args}`);
+			    return f(...args);
+			  }
+			}
+
+			// decorator function defined with lambda (arrow function syntax)
+			const logDecoratorLambdas = f => (...args) => {
+			  console.log(`${f.name} called with args: ${args}`);
+			  return f(...args);
+			}
+
+			// the function to be decorated
+			function add(x,y){
+			  return x+y;
+			}
+
+			// decorate the add function
+			const decoratedAdd = logDecorator(add);
+			const lambdasDecoratedAdd = logDecoratorLambdas(add);
+
+			// use the decorated function
+			console.log(decoratedAdd(2,3));
+			console.log(lambdasDecoratedAdd(2,3));
+		</code></pre>
 	</section>
 </section>
 

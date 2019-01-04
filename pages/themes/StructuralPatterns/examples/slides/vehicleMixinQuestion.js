@@ -27,8 +27,9 @@ function augment( receiver, giver, methodsArray ){
     // with all methods
     else {
         for ( let methodName in giver.prototype ) {
-            if ( !Object.hasOwnProperty.call(receiver.prototype, methodName) ) {
-                receiver.prototype[methodName] = giver.prototype[methodName];
+            // if ( !Object.hasOwnProperty.call(receiver.prototype, methodName) ) {
+            if ( !receiver.prototype.hasOwnProperty(methodName) ) {
+                receiver.prototype[m] = giver.prototype[m];
             }
         }
     }
@@ -42,7 +43,9 @@ augment( Car, Mixin );
 
 // make some objects
 var ford = new Car({ model: "Ford" });
-console.dir(ford);
+console.log(ford);
+ford.drive();
 
 var harley = new Bike({ model: "Harley Davidson" });
 console.dir(harley);
+harley.purr();

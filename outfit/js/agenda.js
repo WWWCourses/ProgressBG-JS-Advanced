@@ -4,7 +4,7 @@ var hours_per_day = 4;
 var themesNodes = document.querySelectorAll('.themes>article>section');
 themesNodes.shown = true;
 var subThemesNodes = document.getElementsByClassName('sub_themes');
-subThemesNodes.shown = true;
+subThemesNodes.shown = false;
 
 
 window.onload = function(){
@@ -16,6 +16,13 @@ function init(){
     calcTotalHours();
     calcTotalDays();
     calcSectionHours();
+
+    if(!themesNodes.shown){
+        hideAllNodes(themesNodes)
+    }
+    if(!subThemesNodes.shown){
+        hideAllNodes(subThemesNodes);
+    }
 }
 function attachEvents(){
     // onclick to themes/sub-themes titles:
@@ -51,9 +58,7 @@ function attachEvents(){
         let element = toggleSubThemesNodes[i];
         element.addEventListener( "click", function(){
             // showHideNodes(this.nextElementSibling)
-            // console.log("THIS:", this);
             showHideAll( element, subThemesNodes );
-            // alert("Clicked");
         });
     };
 }
@@ -63,7 +68,7 @@ function setHours(){
 
     // insert <span class=hours> after each h3
     for (let i = 0, len = sections.length; i < len ; i++) {
-        console.log(`section: ${sections[i]}`);
+        // console.log(`section: ${sections[i]}`);
         // create output node:
         var outNode = document.createElement('span');
         outNode.className = 'Hours';
