@@ -100,7 +100,7 @@ function functionArgsDecorator(){
 
 
 function functionDecorator(){
-  // helper function
+  // just a helper function
   function getCurrentDate(){
     let d = new Date();
     return `${d.getDate()}.${d.getMonth()+1}.${d.getFullYear()}`
