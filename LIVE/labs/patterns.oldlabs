@@ -1,0 +1,28 @@
+// var Event = function() {
+//   //private data
+//   var timestamp = `${Date()}`;
+
+//   // privileged method
+//   this.timestamp = (function(){
+//     return timestamp;
+//   })();
+
+
+// }
+
+
+class Dev{
+  name = "Pesho";
+  id = 1;
+  constructor(){
+    // this.name = name;
+    // this.id = 1;
+  }
+  getID(){
+    return this.id;
+  }
+}
+
+const pesho = new Dev();
+
+pesho.id; //error - private llll

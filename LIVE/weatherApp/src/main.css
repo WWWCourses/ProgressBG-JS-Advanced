@@ -1,0 +1,48 @@
+header{
+  height: 10vh;
+  background: #666;
+  color: #CCC;
+  font-size: 2em;
+  line-height: 2em;
+  text-align: center;
+}
+main{
+  height: 90vh;
+  background: #CCC;
+}
+.town_menu{
+  padding: 4em 0 0 0;
+  box-sizing: border-box;
+  border: 2px solid red;
+}
+.town_menu:after{
+  content: "";
+  display: block;
+  clear: both;
+}
+.town_menu li{
+  float: left;
+  width:5em;
+  margin: 0 2em;
+  font-size: 2em;
+  height:2em;
+  line-height: 2em;
+  text-align: center;
+  background: #B8CDD8;
+  border: 1px solid #5E869B;
+  box-sizing: border-box;
+}
+.town_menu li:nth-child(1){
+  margin-left:6em;
+}
+.town_menu li:hover{
+  cursor: pointer;
+}
+
+.output{
+  font-size: 1.5em;
+  position: fixed;
+  top:13em; left: 0; right: 0;
+  min-height: 10em;
+  border: .5em solid purple;
+}

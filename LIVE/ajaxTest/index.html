@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AJAX demo</title>
+  <style type="text/css">
+    .output{
+      border: 2px solid red;
+    }
+    .product{
+      position: relative;
+      margin: 1em;
+      padding: .3em;
+      border: .3em outset purple;
+    }
+    .product>div{
+      /*border: 1px solid red;*/
+      padding: .2em;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+    .product span:nth-of-type(1){
+      padding: .3em;
+      border-radius: 50%;
+      background: #EAECB8;
+    }
+  </style>
+</head>
+<body>
+  <button class="getDataBtn">Get Namedays</button>
+  <button class="getDataBtn">Get Product</button>
+  <div class="output"></div>
+
+
+  <img src="https://images.unsplash.com/photo-1547994770-e5d8509b114d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80">
+  <script type="text/javascript" src="fetchFetchAPI.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "sofia":{
+    "temp": 20,
+    "wind": 1.7
+  },
+  "plovdiv":{
+    "temp": 30,
+    "wind": 0.8
+  },
+  "burgas":{
+    "temp": 24,
+    "wind": 3.7
+  }
+}
+

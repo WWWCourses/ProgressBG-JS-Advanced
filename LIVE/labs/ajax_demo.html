@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+<button class="getDataBtn">Get data</button>
+<div class="output"></div>
+
+<script type="text/javascript">
+  var nodes={
+    output:  document.getElementsByClassName('output')[0],
+    getDataBtn: document.getElementsByClassName('getDataBtn')[0],
+  };
+
+  var dataURL = 'data_demo.json';
+
+  var AJAXcall = function(){
+    // create a XMLHttpRequest object
+    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() :
+            new ActiveXObject("Microsoft.XMLHTTP");
+
+    // initializes the request:
+    xhr.open("GET", dataURL, true);
+
+    // EventHandler, that will be fired each time when the xhr state changes
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // finally do something with content:
+        console.log(`Data retrieved: ${this.responseText}`);
+        // nodes.output.innerHTML = this.responseText;
+        return this.responseText;
+      };
+    };
+
+    // sends the request:
+    xhr.send();
+  };
+
+  nodes.getDataBtn.addEventListener('click', function(){
+    let data = AJAXcall();
+    console.log(`DATA at the main: ${data}`);
+  });
+</script>
+</body>
+</html>

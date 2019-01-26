@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDFJS demo</title>
+    <!-- <script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.385/build/pdf.min.js"></script>
+    <script type="text/javascript">
+        function renderPDF(url, canvasContainer, options) {
+            var options = options || { scale: 1 };
+
+            function renderPage(page) {
+                var viewport = page.getViewport(options.scale);
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var renderContext = {
+                  canvasContext: ctx,
+                  viewport: viewport
+                };
+
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                canvasContainer.appendChild(canvas);
+
+                page.render(renderContext);
+            }
+
+            function renderPages(pdfDoc) {
+                for(var num = 1; num <= pdfDoc.numPages; num++)
+                    pdfDoc.getPage(num).then(renderPage);
+            }
+
+            PDFJS.disableWorker = true;
+            PDFJS.getDocument(url).then(renderPages);
+        }
+    </script>
+
+    <style type="text/css">
+        *{
+            box-sizing: border-box;
+        }
+        #holder{
+          /*border: 5px solid red;*/
+          padding:0
+        }
+        .canvas-wrapper{
+          margin-bottom: 16px;
+        }
+        canvas{
+          width: 100%;
+          margin: 0 auto;
+          display: block;
+        }
+        .frame_wrapper{
+            position: relative;
+            margin: 0 auto;
+            margin-top:3em;
+            width: 30em;
+            height: 80vh;
+        }
+        /*dirty-fast-fix: hide vertical scroll*/
+        .frame_wrapper:after{
+            content: "";
+            display: block;
+            position: absolute;
+            right: 0px;
+            background: #FFF;
+            border-left: .25em inset #999;
+            height: 97%;
+            width: 1.3em;
+            z-index: 101;
+        }
+
+        /*dirty-fast-fix: hide horizontal scroll*/
+        .frame_wrapper:before{
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            background: #FFF;
+            /*border-left: 2px inset #999;*/
+            height: 1em;
+            z-index: 100;
+            width: 100%;
+            border-top: .25em inset #999;
+        }
+        iframe{
+            position: absolute;
+            top: 0; bottom: 0;left: 0; right: 0;
+            height: 100%;
+            width: 100%;
+            border-top: .25em inset #999;
+            /*border: 2px inset #CCC;*/
+        }
+    </style>
+</head>
+<body>
+<div id="holder"></div>
+<div class="frame_wrapper">
+    <iframe src="demo.pdf#toolbar=0&navpanes=0&zoom=page-width&page=10" scrolling="no"></iframe>
+    <!-- <iframe src="https://res.cloudinary.com/sivadass/image/upload/v1519136548/hr-sample-pdf.pdf#toolbar=0&navpanes=0&zoom=56"></iframe> -->
+    <!-- Not quite full ref: https://github.com/mozilla/pdf.js/wiki/Viewer-options#options-after-the- -->
+</div>
+
+<script type="text/javascript">
+// renderPDF('Fain2_ADwT2E_MEAP_V06_ch1.pdf', document.getElementById('holder'));
+// renderPDF('https://res.cloudinary.com/sivadass/image/upload/v1519136548/hr-sample-pdf.pdf', document.getElementById('holder'));
+</script>
+</body>
+</html>

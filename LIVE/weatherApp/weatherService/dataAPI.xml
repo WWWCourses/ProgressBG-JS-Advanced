@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weather>
+  <sofia>
+    <tempReal>30</tempReal>
+    <tempFeel>30</tempFeel>
+    <wind>1.7</wind>
+  </sofia>
+  <plovdiv tempFeel="10" tempReal="35" wind="0.2/>
+
+  "plovdiv":{
+    "tempReal": 35,
+    "tempFeel": 10,
+    "wind": 0.2
+  },
+  "burgas":{
+    "tempReal": 32.5,
+    "tempFeel": 32,
+    "wind": 0
+  }
+  <tempReal>30</tempReal>
+  <tempFeel>12</tempFeel>
+  <wind>1.7</wind>
+</weather>

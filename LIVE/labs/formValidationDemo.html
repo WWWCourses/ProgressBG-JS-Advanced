@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FormValidation</title>
+</head>
+<body>
+    <form action="/user/login" id="login">
+        <label for="umail">user mail: <input type="text" name="umail"></label>
+        <button type="button">Send</button>
+        <div class="mail_stat"></div>
+    </form>
+
+    <script>
+        function getDOMNodes(){
+            let dom = {};
+            dom.form = document.querySelector('#login');
+            dom.inputMail = dom.form.querySelector('input[name="umail"]');
+            dom.mailStat = dom.form.querySelector('.mail_stat');
+            dom.btnSend= dom.form.querySelector('button');
+
+            return dom;
+        }
+        let dom = getDOMNodes();
+        console.dir(dom);
+
+        // create custom error object:
+        class InvalidEmail extends Error {
+          constructor(msg="InvalidEmail Error") {
+            super(msg);
+            this.name = 'InvalidEmail Error';
+          }
+        }
+
+        // attach click event to the button
+
+        dom.btnSend.addEventListener('click', ()=>{
+            try{
+                if(  !dom.inputMail.value.match(/\w+@\w+\.\w{2,3}/ )){
+                    throw new InvalidEmail();
+                }
+            }catch(e){
+                console.dir(e);
+                dom.mailStat.innerHTML = e.message;
+            }
+        })
+    </script>
+</body>
+</html>
