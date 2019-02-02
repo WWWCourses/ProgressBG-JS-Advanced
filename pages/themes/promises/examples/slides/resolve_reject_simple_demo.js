@@ -1,14 +1,29 @@
-let calcPromise = new Promise((resolve,reject)=>{
-	let num = Math.floor(Math.random()*100);
-	console.log(`num = ${num}`);
+let promiseForEven = new Promise( (resolve, reject)=>{
+	setTimeout(function(){
+		let num = Math.round(Math.random()*100);
+		console.log(`num = ${num}`);
 
-	if(num%2===0){
-		resolve('Even')
-	}else{
-		reject('Odd')
-	}
-});
+		if(num%2 === 0){
+			resolve(num)
+		}else{
+			reject(num)
+		}
+	},2000)
 
-calcPromise
-.then(msg=>console.log(`Resolved: ${msg}`))
-.catch(msg=>console.log(`Rejected: ${msg}`))
+})
+
+function promiseFulfilled(num){
+	console.log('Do something with '+num);
+}
+
+function promiseRejected(num){
+	console.log('Error: '+num);
+}
+
+
+promiseForEven
+	.then( promiseFulfilled )
+	.catch( promiseRejected )
+
+
+console.log(`I'm doing something important`);

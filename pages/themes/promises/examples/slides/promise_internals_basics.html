@@ -4,12 +4,23 @@
 	<title>Promise internals basic</title>
 </head>
 <body>
-
 	<script type="text/javascript">
-		let simplePromise = new Promise(function(){});
+		function executor(resolve, reject){
+			console.log(`I'm the executor. I'll accept and call your 'resolve' and 'reject' functions.`);
 
-		console.log(typeof simplePromise);
+			resolve('Here is your data');
+			setTimeout(reject('Ups, something went wrong!'), 1000)
+		};
+
+		let simplePromise = new Promise( executor );
 		console.dir(simplePromise);
+
+		simplePromise
+			.then(data=>console.log(`Do something on promise fulfilment`))
+
+		simplePromise
+			.catch(err=>console.log(`Do something on promise failure`))
+
 	</script>
 </body>
 </html>
