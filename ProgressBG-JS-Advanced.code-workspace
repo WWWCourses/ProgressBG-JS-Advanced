@@ -46,5 +46,6 @@
 			"attr-no-duplication": true,
 			"title-require": true
 		},
+		"editor.tabSize": 2,
 	}
 }
