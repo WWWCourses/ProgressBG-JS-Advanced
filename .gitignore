@@ -12,9 +12,8 @@ subl_*
 .*
 !.gitignore
 !.gitmodules
-
-# shell files
-*.sh
+!.vscode
+!.bin
 
 **/node_modules/**
 .sass-cache
