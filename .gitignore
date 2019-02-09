@@ -16,8 +16,7 @@ subl_*
 # shell files
 *.sh
 
-node_modules/
-**/node_modules/
+**/node_modules/**
 .sass-cache
 
 *.sublime-workspace

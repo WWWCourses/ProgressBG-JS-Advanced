@@ -27,8 +27,15 @@
 		"editor.renderLineHighlight": "all",
 		"workbench.colorTheme": "Solarized Light",
 		"workbench.colorCustomizations": {
+			"[Solarized Light]": {
 
+			}
 		},
+		"bracket-pair-colorizer-2.colors": [
+			"#da707d",
+			"Orchid",
+			"#8e70da"
+		],
 		"bracket-pair-colorizer-2.rulerPosition": "Right",
 		"bracket-pair-colorizer-2.showBracketsInGutter": true,
 		"bracket-pair-colorizer-2.showVerticalScopeLine": true,
