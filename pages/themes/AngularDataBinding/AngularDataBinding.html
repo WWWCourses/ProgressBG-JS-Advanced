@@ -460,44 +460,97 @@
 	</code></pre>
 </section>
 
-
-
+<section data-min="30"><h1>Two-way Data Binding</h1></section>
 <section><h2>Two-way Data Binding</h2>
-	<section>
-		<dl class="fa">
-			<dt>Both display a data property and update that property when the user makes changes.</dt>
-			<dt>The two-way binding syntax is just <span class="note">syntactic sugar</span> for a <span class="note">property binding</span> and an <span class="note">event binding</span></dt>
+	<section><h3>Overview</h3>
+		<dl class="fa" style="font-size: .8em;">
+			<dt>Two-way binding allows to both display a data property and update that property when the user makes changes.</dt>
+			<dt>In Angular (>=2.x) we can achieve that by combination of data and event bindings.</dt>
+			<dt>But Angular offers a special <span class="note">two-way data binding syntax</span> for this purpose - the "<b>banana-in-a-box</b>" syntax:</dt>
+			<pre><code rel="Syntax" class="typescript" style="font-size: 1.4em">
+				[(data)]
+			</code></pre>
+			<dt>The "<b>banana-in-a-box</b>" syntax is just a syntactic sugar for a property binding and an event binding.</dt>
 		</dl>
 	</section>
-	<section>
+	<section><h3>Example</h3>
+			<pre><code rel="HTML" class="js">
+				<input [(ngModel)]="item.content">
+				<li>{{item.content}}</li>
+			</code></pre>
+			<p>is equivalent to </p>
+			<pre><code rel="JS" class="js">
+				<input [value]="item.content" (input)="onInput($event)">
+				<li>{{item.content}}</li>
+			</code></pre>
+		</section>
+	<section><h3>Two-way binding with[(ngModel)]</h3>
 		<dl class="fa">
-			<dt>When using Two-way Data Binding for form controls is easier to use the [(ngModel)] attribute directive</dt>
-			<dt>Note, FormsModule is required to use ngModel</dt>
+			<dt>Using the <code>[(x)]</code> syntax is convenient for custom components, where we implement the settable property called x and a corresponding event named xChange.</dt>
+			<dt>But HTML input elements do not have such properties, corresponding to Change events.</dt>
+			<dt>For such cases, it is better to use the ngModel directive</dt>
+			<dt class="note">FormsModule is required to use [(ngModel)]</dt>
 		</dl>
-		<pre><code rel="src/app/app.module.ts" class="js">
-			import { FormsModule } from '@angular/forms';
+	</section>
+	<section><h3>Two-way binding with[(ngModel)] -example</h3>
+		<dl class="fa">
+			<dt>Make sure you import the FormsModule in app.module.ts:</dt>
+			<pre><code rel="app.module.ts " class="typescript">
+				/* Other imports */
+				import { FormsModule } from '@angular/forms';
 
-			@NgModule({
-				imports: [
-					BrowserModule,
-					FormsModule
-				]
+				@NgModule({
+					imports: [
+						BrowserModule,
+						FormsModule
+					],
+					/* Other module metadata */
+				})
+				export class AppModule { }
+			</code></pre>
+		</dl>
+	</section>
+	<section><h3>Two-way binding with [(ngModel)] -example</h3>
+		<pre><code rel="event-binding.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-event-binding',
+				template: `
+					<label>userName: <input [(ngModel)]="userName"></label>
+					<div class="output">You've entered: {{userName}}</div>
+				`,
+				styles: [``]
 			})
+			export class EventBindingComponent {
+				userName;
+			}
 		</code></pre>
 	</section>
-	<section>
-		<pre><code rel="HTML" class="js">
-			<input [(ngModel)]="item.content">
-			<li>{{item.content}}</li>
-		</code></pre>
-		<p>is equivalent to </p>
-		<pre><code rel="JS" class="js">
-			<input [value]="item.content" (input)="onInput($event)">
-			<li>{{item.content}}</li>
+	<section><h3>[(ngModel)] equivalents</h3>
+		<dl class="fa" style="font-size: .8em">
+			<dt>The previous example with [(ngModel)] can be written as combination of property binding and an event binding.</dt>
+			<dt>Note that, the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/input">input event</a> is a standard DOM Event.</dt>
+		</dl>
+		<pre><code rel="event-binding.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
+
+			@Component({
+				selector: 'app-event-binding',
+				template: `
+					&lt;input [value]=&quot;userName&quot; (input)=&quot;userName = $event.target.value&quot;&gt;
+					&lt;div class=&quot;output&quot;&gt;You've entered: {{userName}}&lt;/div&gt;
+				`,
+				styles: [``]
+			})
+			export class EventBindingComponent {
+				userName = '';
+			}
 		</code></pre>
 	</section>
 </section>
-<section><h2>Input and output properties ( @Input and @Output )</h2></section>
+
+
 
 <section class="disclaimer" data-background="../../../outfit/images/for_slides/the_end_on_sand.jpg">
 	 <p>These slides are based on</p>
