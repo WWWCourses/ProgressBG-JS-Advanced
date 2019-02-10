@@ -44,7 +44,7 @@
 ##################### SLIDES START #####################
 ########################################################
 -->
-<section><h1>Angular Directives</h1></section>
+<section><h1>Angular Directives and Pipes</h1></section>
 <section data-transition="zoom">
 	<div class="copyright">
 		<div class="note">
@@ -256,6 +256,141 @@
     </code></pre>
   </section>
 </section>
+
+
+<section data-min="1"><h1>Transform data with pipes, not filters!</h1></section>
+<section><h2>Transform data with pipes, not filters!</h2>
+  <section><h3></h3>
+    <dl class="fa">
+      <dt>AngularJS (Angular 1.X) - uses <span class="note">filters</span> to transform data</dt>
+      <dt>In Angular (Angular2+) the filters are now called <span class="note">pipes</span></dt>
+    </dl>
+  </section>
+  <section>
+    <dl class="fa">
+      <dt>Most of AngularJS filters have their Angular pipes equivalents</dt>
+      <dt class="note">There is no equivalent for filtering or sorting lists <a href="https://angular.io/guide/pipes#no-filter-pipe">No FilterPipe or OrderByPipe</a> @angular docs</dt>
+    </dl>
+  </section>
+</section>
+
+<section data-min="10"><h1>How to use Pipes</h1></section>
+<section><h2>How to use Pipes</h2>
+  <section>
+    <dl class="fa">
+      <dt>A pipe takes in data as input and transforms it to a desired output</dt>
+      <dt>Angular includes several pipes to add to your template.</dt>
+      <dt>There is no need to import them or add them as directives or anything—just start using them.</dt>
+      <dt>A pipe is denoted with the pipe symbol : <code><b>|</b></code></dt>
+    </dl>
+  </section>
+  <section><h3>Syntax</h3>
+    <pre><code rel="Syntax" class="bash" data-noescape>
+      {{ data | pipe }}
+    </code></pre>
+  </section>
+</section>
+
+<section data-min="20"><h1>Built-in Pipes</h1></section>
+<section><h2>Built-in Pipes</h2>
+  <section><h3><code>lowercase</code></h3>
+    <p>Transforms a string into a lower-case string</p>
+    <pre><code rel="Syntax" class="bash" data-noescape>
+      {{ 'string' | lowercase }}
+    </code></pre>
+    <pre><code rel="HTML" class="html">
+      <p>Lowercase: {{'Ada Byron' | lowercase}}</p>
+    </code></pre>
+    <pre><code rel="Output" class="text">
+      Lowercase: ada byron
+    </code></pre>
+  </section>
+  <section><h3><code>uppercase</code></h3>
+    <p>Transforms a string into a upper-case string</p>
+    <pre><code rel="Syntax" class="bash" data-noescape>
+      {{ 'string' | uppercase }}
+    </code></pre>
+    <pre><code rel="HTML" class="html">
+      <p>Uppercase: {{'Ada Byron' | uppercase}}</p>
+    </code></pre>
+    <pre><code rel="Output" class="text">
+      Uppercase: ADA BYRON
+    </code></pre>
+  </section>
+  <section><h3><code>currency</code></h3>
+    <p>Adds currency info to a number</p>
+    <pre><code rel="Syntax" class="bash" data-noescape>
+      {{ value | currency [ : currencyCode [ : display [ : digitsInfo [ : locale ] ] ] ] }}
+    </code></pre>
+    <pre><code rel="HTML" class="html">
+      <p>Currency: {{ 23.55 | currency }}</p>
+    </code></pre>
+    <pre><code rel="Output" class="text">
+      Currency: $23.55
+    </code></pre>
+    <p>More on <a href="https://angular.io/api/common/CurrencyPipe">CurrencyPipe</a> @angular docs</p>
+  </section>
+  <section><h3><code>percent</code></h3>
+    <p>Transforms a number into a percent</p>
+    <pre><code rel="Syntax" class="bash" data-noescape>
+      {{ 'string' | percent }}
+    </code></pre>
+    <pre><code rel="HTML" class="html">
+      <p>Percentage: {{ 0.5 | percent }}</p>
+    </code></pre>
+    <pre><code rel="Output" class="text">
+      Percentage: 50%
+    </code></pre>
+  </section>
+  <section><h3><code>date</code></h3>
+    <dl class="fa">
+      <dt>Transforms a datetime object or string representing a date into a date formated string</dt>
+      <dt><a href="https://angular.io/api/common/DatePipe">DatePipe</a> @angular docs</dt>
+    </dl>
+    <pre><code rel="Syntax" class="bash" data-noescape>
+      {{ value | date [ : format [ : timezone [ : locale ] ] ] }}
+    </code></pre>
+    <pre><code rel="HTML" class="html">
+      <p>Date: {{ '2018-01-15T09:03:01+0900' | date }}</p>
+      <p>Date: {{ '2018-01-15T09:03:01+0900' | date:'y MMMM - EEEE d' }}</p>
+    </code></pre>
+    <pre><code rel="Output" class="text">
+
+    </code></pre>
+  </section>
+</section>
+
+<section data-min="20"><h1>Custom Pipes</h1></section>
+<section><h2>Custom Pipes</h2>
+  <section><h3>Create custom pipes</h3>
+    <dl class="fa">
+      <dt>You can use the CLI:</dt>
+      <pre><code rel="Terminal" class="bash" data-noescape>
+        ng generate pipe pipeName
+      </code></pre>
+      <dt>Or, you can create your own class with @Pipe annotation and:</dt>
+      <dd>the class must implement the PipeTransform interface</dd>
+      <dd>imports the Pipe and PipeTransform</dd>
+    </dl>
+  </section>
+  <section><h3>example</h3>
+    <pre><code rel="TS" class="typescript">
+      import { Pipe, PipeTransform } from '@angular/core';
+
+      @Pipe({
+        name: 'testPipe'
+      })
+      export class TestPipePipe implements PipeTransform {
+
+        transform(value: any, args?: any): any {
+          return null;
+        }
+
+      }
+    </code></pre>
+  </section>
+</section>
+
 
 <section class="disclaimer" data-background="../../../outfit/images/for_slides/the_end_on_sand.jpg">
 	 <p>These slides are based on</p>
