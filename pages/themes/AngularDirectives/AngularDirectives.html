@@ -132,57 +132,129 @@
 	<section><h3><a href="https://angular.io/guide/template-syntax#ngmodel---two-way-binding-to-form-elements-with-ngmodel">NgModel</a></h3></section>
 </section>
 
-<section><h2><a href="https://angular.io/guide/template-syntax#built-in-structural-directives">Built-in structural directives</a></h2>
-	<section><h3>Overview</h3>
-		<dl class="fa">
-			<dt>Structural directives change the DOM's structure</dt>
-			<dt>With them we can add, remove, or manipulate elements.</dt>
-			<dt>An asterisk (*) always precedes the directive attribute.</dt>
-		</dl>
-	</section>
-	<section><h3><a href="https://angular.io/guide/template-syntax#ngIf">NgIf</a></h3>
-		<dl class="fa">
-			<dt>Add or remove an element from the DOM by applying an NgIf directive to that element (called the host element)</dt>
-		</dl>
-		<pre><code rel="Syntax" class="html">
-			<tag *ngIf="expression which evaluates to true/false"></tag>
+<section data-min="50"><h1>Built-In Directives</h1></section>
+<section><h2>Built-In Directives</h2>
+  <section><h3>Structural Directives</h3>
+    <dl class="fa">
+      <dt>They can manipulate the DOM structure.</dt>
+      <dt>With them we can add, remove or modify DOM elements.</dt>
+      <dt>An asterisk (*) precedes the structural directive name</dt>
+      <dt>You may apply only one structural directive to an element.</dt>
+    </dl>
+  </section>
+  <section><h3>Structural Directives</h3>
+    <dl class="fa" style="font-size: .8em">
+      <dt>Asterisk symbol is a "syntactic sugar".</dt>
+      <dt>Internally, Angular translates the <code>*ngSomething</code> attribute into a <code>&lt;ng-template&gt;</code> element, wrapped around the host element</dt>
+      <pre><code rel="Asteric Notation" class="html">
+        &lt;h2 *ngIf=&quot;true&quot;&gt;shown&lt;/h2&gt;
+      </code></pre>
+      <pre><code rel="<ng-template> wrapping" class="html">
+        <ng-template [ngIf]="true">
+          &lt;h2&gt;shown&lt;/h2&gt;
+        </ng-template>
+      </code></pre>
+      <dd>The translation is according to the Angular's <a href="https://angular.io/guide/structural-directives#microsyntax">microsyntax</a>.</dd>
+    </dl>
+    <p class="note">More on property bindings (<code>[ngif]=""</code>) will be discused in "Data and Events Bindings" theme.</p>
+  </section>
+  <section><h3><code>NgIf</code></h3>
+    <pre><code rel="Syntax" class="bash">
+      &lt;tag *ngIf=&quot;condition&quot;&gt;&lt;/tag&gt;
+    </code></pre>
+    <dl class="fa">
+      <dt>With <code>ngIf</code> directive we can display or hide an element based on a condition.</dt>
+      <dt>condition is the result of an <em>expression</em> that we pass into directive.</dt>
+      <dd>if condition == true : the element will be included in the DOM</dd>
+      <dd>if condition == false : the element will be removed (not just hide) from the DOM</dd>
+    </dl>
+  </section>
+  <section><h3><code>NgIf - examples</code></h3>
+    <pre style="width: 110%"><code rel="directives-test.component.ts" class="typescript">
+      import { Component, OnInit } from '@angular/core';
 
-			<!-- if expression = true the element would exists in DOM -->
-			<!-- if expression = false the element would NOT exists in DOM -->
-		</code></pre>
-	</section>
-	<section><h3>NgIf example</h3>
-		<pre><code rel="HTML" class="html">
-			<li *ngIf="0">Item 1</li> <!-- do not exists in DOM -->
-			<li *ngIf="1">Item 2</li> <!-- exists in DOM -->
-		</code></pre>
-	</section>
-	<section><h3>NgIf as guard against null values</h3>
-		<pre><code rel="JS" class="js">
-			<!-- what will happens if items[0] did not exists? -->
-			<li  *ngIf="items[0].content">{{items[0].content}}</li>
+      @Component({
+        selector: 'app-directives-test',
+        styles: [`section&gt;h2{
+                    border: .1em solid #000; margin: 1em;
+                }`],
+        template: `&lt;section&gt;
+                    &lt;h2 *ngIf=&quot;false&quot;&gt;*ngIf=&quot;false&quot;&lt;/h2&gt;
+                    &lt;h2 *ngIf=&quot;true&quot;&gt;*ngIf=&quot;true&quot;&lt;/h2&gt;
+                    &lt;h2 *ngIf=&quot;3&gt;2-1&quot;&gt;*ngIf=&quot;3&gt;2-1&quot;&lt;/h2&gt;
+                    &lt;h2 *ngIf=&quot;showH2&quot;&gt;*ngIf=&quot;showH2&quot;&lt;/h2&gt;
+                  &lt;/section&gt;`
+      })
+      export class DirectivesTestComponent implements OnInit {
 
-			<!-- next element want be rendered and no error would be thrown if items[5] did not exists -->
-			<li  *ngIf="items[5]">{{items[5].content}}</li>
-		</code></pre>
-	</section>
-	<section><h3><a href="https://angular.io/guide/template-syntax#ngfor">NgFor</a></h3>
-		<pre><code rel="TS" class="js">
-			items =  [
-				{content: 'Item1', checked: false },
-				{content: 'Item2', checked: true },
-				{content: 'Item3', checked: false },
-			];
-		</code></pre>
-		<pre><code rel="HTML" class="html">
-			<div *ngFor="let item of items">
-				<li>{{item.content}} : {{item.checked}}</li>
-			</div>
-		</code></pre>
-	</section>
-	<section><h3><a href="https://angular.io/guide/template-syntax#the-ngswitch-directives">NgSwitch</a></h3>
-		<p>Self-learning section: <a href="https://angular.io/guide/template-syntax#the-ngswitch-directives">NgSwitch</a></p>
-	</section>
+        showH2 = 'true';
+
+        constructor() { }
+
+        ngOnInit() {
+        }
+
+      }
+    </code></pre>
+  </section>
+  <section><h3>ngIf; then; else</h3>
+    <pre><code rel="HTML" class="html">
+      <div *ngIf="isValid;then thenBlock else elseBlock">here is ignored</div>
+      <ng-template #thenBlock>thenBlock: isValid == true</ng-template>
+      <ng-template #elseBlock>elseBlock: isValid == false</ng-template>
+    </code></pre>
+  </section>
+  <section><h3><code>NgSwitch</code></h3>
+    <dl class="fa">
+      <dt>To replace multiple alternative ngIf directives</dt>
+    </dl>
+    <pre><code rel="HTML" class="html">
+      <div class="container">
+        <div *ngIf="myVar == 'A'">Var is A</div>
+        <div *ngIf="myVar == 'B'">Var is B</div>
+        <div *ngIf="myVar != 'A' && myVar != 'B'">Var is neither A nor B</div>
+      </div>
+    </code></pre>
+    <pre><code rel="HTML" class="html">
+      <div class="container" [ngSwitch]="myVar">
+        <div *ngSwitchCase="'A'">Var is A</div>
+        <div *ngSwitchCase="'B'">Var is B</div>
+        <div *ngSwitchDefault>Var is something else</div>
+      </div>
+    </code></pre>
+  </section>
+  <section><h3><code>ngFor</code></h3>
+    <dl class="fa">
+      <dt>Allows to repeat a given DOM element and pass an element of the array (iterable object) on each iteration.</dt>
+      <dt><code>ndFor</code> is useful for generating repeating content, such as a list items, dropdown options, and so on.</dt>
+    </dl>
+    <pre><code rel="HTML" class="html">
+      <ul *ngFor="let item of [1,2,3]">
+        <li>item {{item}}</li>
+      </ul>
+    </code></pre>
+    <pre><code rel="Output" class="bash" data-noescape>
+      . item 1
+      . item 2
+      . item 3
+    </code></pre>
+  </section>
+  <section><h3><code>ngFor - example</code></h3>
+    <pre><code rel="directives.component.html" class="html">
+      <div *ngFor="let name of names; let i = index;">
+        <p>Hello {{name}}!</p>
+      </div>
+    </code></pre>
+    <pre><code rel="directives.component.ts" class="typescript">
+      export class DirectivesComponent implements OnInit {
+        names = ['Maria', 'Ivan'];
+
+        constructor() { }
+
+        ngOnInit() {}
+      }
+    </code></pre>
+  </section>
 </section>
 
 <section class="disclaimer" data-background="../../../outfit/images/for_slides/the_end_on_sand.jpg">
