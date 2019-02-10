@@ -113,13 +113,10 @@
 		</code></pre>
 	</section>
 	<section><h3>What's in a Component</h3>
-		<dl class="fa">
-			<dt>Component Decorator</dt>
-			<dt>A View</dt>
-			<dt>A Controller</dt>
-		</dl>
+		<p><a href="images/AngularComponentBox_MY.png"><img src="images/AngularComponentBox_MY.png"></a></p>
 	</section>
 	<section><h3> Component Class</h3>
+		<p>Angular Component is just a class, decorated with <code>@Component</code> decorator</p>
 		<pre><code rel="JS" class="typescript">
 			import { Component } from '@angular/core';
 			// the Decorator
@@ -134,7 +131,7 @@
 				styles: []
 			})
 			export class AppComponent {
-				// the Controler
+				// the ViewModel
 				title = 'app';
 			}
 		</code></pre>
@@ -200,6 +197,17 @@
 			<dt>With the selector key, you indicate how your component will be recognized when rendering HTML templates</dt>
 			<dt>The selector is a way to define what elements in the HTML will match this component.</dt>
 			<dt>I.e. this is how you "teach" the browser how to handle new HTML elements!</dt>
+		</dl>
+	</section>
+	<section><h3>The Selector</h3>
+		<p>Some of the standard CSS Selectors are supported in Angular Selectors</p>
+		<dl class="fa">
+			<dt><span class="note">element-name</span> - select by element name.</dt>
+			<dt><span class="note">.class</span> - select by class name.</dt>
+			<dt><span class="note">[attribute]</span> - select by attribute name.</dt>
+			<dt><span class="note">[attribute=value]</span> - select by attribute name and value.</dt>
+			<dt><span class="note">:not(sub_selector)</span> - select only if the element does not match the sub_selector.</dt>
+			<dt><span class="note">selector1, selector2</span> - select if either selector1 or selector2 matches.</dt>
 		</dl>
 	</section>
 	<section><h3>Loading the "todos" Component</h3>
@@ -311,18 +319,87 @@
 				}
 			}
 		</code></pre>
-		<p>will be discussed deeply in next sections</p>
 	</section>
 </section>
-<section><h2>Templates</h2>
+
+
+
+
+<section data-min="10"><h1>The Template</h1></section>
+<section><h2>The Template</h2>
 	<section>
 		<dl class="fa">
-			<dt>Each <span class="note">component view</span> is defined in its companion <span class="note">template</span></dt>
 			<dt>In Angular, the component plays the part of the controller/viewmodel, and the template represents the view.</dt>
 			<dt>An angular template looks like HTML, but follows the <a href="https://angular.io/guide/template-syntax">Angular Template Syntax</a></dt>
 		</dl>
 	</section>
+  <section><h3>Interpolation <code>{﻿{...}}</code></h3>
+		<pre><code rel="app.component.html" class="html">
+			<h1>Welcome to {{title}}</h1>
+			<p>We can interpolate simple expressions</p>
+			<ul>
+				<li>{{2+7}}</li>
+				<li>{{data.id}}</li>
+				<li>{{data.name}}</li>
+			</ul>
+		</code></pre>
+
+		<pre><code rel="app.component.ts" class="ts">
+			import { Component } from '@angular/core';
+
+			@Component({
+				selector: 'app-root',
+				templateUrl: './app.component.html',
+				styleUrls: ['./app.component.css']
+			})
+			export class AppComponent {
+				title = 'TodoApp';
+				data = {
+					id:1,
+					name:'test'
+				}
+			}
+		</code></pre>
+  </section>
+  <section><h3>Template Reference Variables</h3>
+    <dl class="fa">
+      <dt>A template reference variable is often a reference to a DOM element within a template</dt>
+      <dt>It can also be a reference to an <em>Angular component</em> or <em>directive</em> or a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web component</a>.</dt>
+      <dt>A template reference variable is declared by <br> prefixing the variable with <code>#</code>.</dt>
+      <dt>It can be accessed anywhere in the entire template.</dt>
+    </dl>
+  </section>
+  <section><h3>Template Reference Variables - examples</h3>
+    <pre><code rel="components.component.html" class="html">
+      &lt;section&gt;
+        &lt;h2&gt;Template reference variables&lt;/h2&gt;
+        &lt;input #userName placeholder=&quot;enter a user name&quot;&gt;
+        &lt;button (click)=&quot;getUserName(userName.value)&quot;&gt;Get UserName&lt;/button&gt;
+      &lt;/section&gt;
+    </code></pre>
+    <pre><code rel="components.component.ts" class="typescript">
+      import { Component, OnInit } from '@angular/core';
+
+      @Component({
+        selector: 'app-components',
+        templateUrl: './components.component.html',
+        styleUrls: ['./components.component.css']
+      })
+      export class ComponentsComponent implements OnInit {
+
+        constructor() { }
+
+        ngOnInit() {
+        }
+
+        getUserName(data) {
+          console.log(data);
+        }
+      }
+    </code></pre>
+  </section>
 </section>
+
 
 <!-- <section id="TODOAPPWithAngularAndMaterial"><h2>TODOAPP with Angular and Material</h2>
 	<section><h3>Get Angular Material Design</h3>

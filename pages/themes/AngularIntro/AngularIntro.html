@@ -438,11 +438,45 @@
   </section>
 </section>
 
+<section data-min="15"><h1>Project Directory Structure and Files</h1></section>
+<section><h2>Project Directory Structure and Files</h2>
+  <p><code>ng new</code> creates the following structure:</p>
+  <dl class="fa" style="font-size: .6em; line-height: 90%;">
+    <dt><code>angular.json</code> (<code>.angular-cli.json</code> in angular cli versions < 6.0)</dt>
+    <dd>configuration for Angular CLI</dd>
+    <dt><code>e2e/</code></dt>
+    <dd>for <em>end-to-end</em> (e2e) tests</dd>
+    <dt><code>node_modules/</code></dt>
+    <dd>here are installed project's node modules dependencies</dd>
+    <dt><code class="note">package.json</code></dt>
+    <dd><em>dependencies</em> and <em>devDependencies</em> sections specifies the node modules dependencies</dd>
+    <dt><code>package-lock.json</code></dt>
+    <dd>it is automatically generated for any operations where npm modifies either the node_modules tree, or package.json</dd>
+    <dt><code class="note">src/app/</code></dt>
+    <dd>here is the actual logic of your app</dd>
+    <dt><code>tsconfig.json</code></dt>
+    <dd>TypeScript compiler configuration</dd>
+    <dt><code>tslint.json</code></dt>
+    <dd>tslint configuration</dd>
+  </dl>
+</section>
 
-<section><h1>Different Angular version on same machine</h1></section>
-<section><h2>Different Angular version on same machine</h2>
+<section data-min="15"><h1>Angular Main Workflow Overview</h1></section>
+<section><h2>Angular Main Workflow Overview</h2>
+  <section>
+    <a href="images/AngularWorkflowOverview.png"><img src="images/AngularWorkflowOverview.png"></a>
+  </section>
+</section>
+
+
+
+
+
+
+<section><h1>Different Angular version on same machine?</h1></section>
+<section><h2>Different Angular version on same machine?</h2>
 	<dl class="fa">
-		<dt>You need to have angular/cli installed globally! Make sure you have the latest version:</dt>
+		<dt>You just need to have angular/cli installed globally! Make sure you have the latest version:</dt>
 		<dd>npm install -g @angular/cli@latest</dd>
 		<dt>The Angular project installed on a machine use their <span class="note">local version</span> of angular. Check by that going to an Angular project and:</dt>
 		<pre><code rel="JS" class="js">
