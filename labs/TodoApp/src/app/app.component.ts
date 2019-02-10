@@ -6,8 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  	itemStyles = {
-  	  'red': true,
-  	  'f2': true,
-  	}
+  	userName = "Ada";
 }
