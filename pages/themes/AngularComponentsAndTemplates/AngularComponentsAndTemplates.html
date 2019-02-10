@@ -324,16 +324,60 @@
 
 
 
-
-<section data-min="10"><h1>The Template</h1></section>
-<section><h2>The Template</h2>
-	<section>
+<section data-min="10"><h1>Templates and Syntax</h1></section>
+<section><h2>Templates and Syntax</h2>
+	<section><h3>The Template</h3>
 		<dl class="fa">
 			<dt>In Angular, the component plays the part of the controller/viewmodel, and the template represents the view.</dt>
 			<dt>An angular template looks like HTML, but follows the <a href="https://angular.io/guide/template-syntax">Angular Template Syntax</a></dt>
 		</dl>
 	</section>
-  <section><h3>Interpolation <code>{﻿{...}}</code></h3>
+	<section><h3>Template Syntax Overview</h3>
+		<dl class="fa">
+			<dt>Almost all valid HTML markup is available in the Template.</dt>
+			<dt>There are few exceptions</dt>
+			<dd><span class="note">script</span> element is not allowed.</dd>
+			<dd><span class="note">html</span>, <span class="note">body</span> and <span class="note">base</span> elements are just ignored.</dd>
+			<dt>The HTML vocabulary of the templates can be extended with components and directives that appear as new elements and attributes.</dt>
+		</dl>
+	</section>
+	<section><h3>Template Expression Interpolation</h3>
+		<pre><code rel="Syntax" class="javascript" data-noescape>
+			{{class_data}} or {{expression}}
+		</code></pre>
+		<pre style="font-size: .5em"><code rel="one-way-data-binding.component.html" class="HTML">
+			<ul>
+				<li>interpolate simple expression --->{{1+2*2}}</li>
+				<li>interpolate class value as HTML content: ---> {{name.toUpperCase()}}</li>
+				<li class="{{note}}">interpolate class value as HTML attribute</li>
+			</ul>
+		</code></pre>
+	</section>
+	<section><h3>Template Expression notes</h3>
+		<dl class="fa">
+			<dt>A template expression must produce a value.</dt>
+			<dt>Template expression is written inside <code>{{}}</code> or for <em>property binding</em> - inside quotes <code>""</code> on the right side of <code>[property]="expression"</code></dt>
+			<dt>Angular executes template expressions after every change detection cycle.</dt>
+			<dt>A template expression should not change any application state other than the value of the target property/element.</dt>
+		</dl>
+	</section>
+	<section><h3>Template Statement Interpolation</h3>
+		<dl class="fa">
+			<dt>A template statement responds to an <b>event</b> raised by a binding element, component, or directive.</dt>
+			<dt>They are used in <em>event binding</em> (discussed further) as the right side of <code>(event)="statement"</code></dt>
+			<dt>Template Statements can have a side effects - i.e. the application state can be freely changed</dt>
+		</dl>
+	</section>
+	<section><h3>Different kind of Brackets</h3>
+		<table>
+			<tr><th>Name</th><th>Description</th></tr>
+			<tr><td class="note">{{expression}}</td><td>string interpolation binding</td></tr>
+			<tr><td class="note">[target]="expr"</td><td>a one-way <span class="note">data</span> binding</td></tr>
+			<tr><td class="note">(target) ="expr"</td><td>a one-way <span class="note">event</span> binding</td></tr>
+			<tr><td class="note">[(target)] ="expr"</td><td><em>the banana-in-a-box</em> brackets specify a two-way data binding</td></tr>
+		</table>
+	</section>
+	<section><h3>Examples</h3>
 		<pre><code rel="app.component.html" class="html">
 			<h1>Welcome to {{title}}</h1>
 			<p>We can interpolate simple expressions</p>
@@ -360,44 +404,44 @@
 				}
 			}
 		</code></pre>
-  </section>
-  <section><h3>Template Reference Variables</h3>
-    <dl class="fa">
-      <dt>A template reference variable is often a reference to a DOM element within a template</dt>
-      <dt>It can also be a reference to an <em>Angular component</em> or <em>directive</em> or a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web component</a>.</dt>
-      <dt>A template reference variable is declared by <br> prefixing the variable with <code>#</code>.</dt>
-      <dt>It can be accessed anywhere in the entire template.</dt>
-    </dl>
-  </section>
-  <section><h3>Template Reference Variables - examples</h3>
-    <pre><code rel="components.component.html" class="html">
-      &lt;section&gt;
-        &lt;h2&gt;Template reference variables&lt;/h2&gt;
-        &lt;input #userName placeholder=&quot;enter a user name&quot;&gt;
-        &lt;button (click)=&quot;getUserName(userName.value)&quot;&gt;Get UserName&lt;/button&gt;
-      &lt;/section&gt;
-    </code></pre>
-    <pre><code rel="components.component.ts" class="typescript">
-      import { Component, OnInit } from '@angular/core';
+	</section>
+	<section><h3>Template Reference Variables</h3>
+		<dl class="fa">
+			<dt>A template reference variable is often a reference to a DOM element within a template</dt>
+			<dt>It can also be a reference to an <em>Angular component</em> or <em>directive</em> or a <a href="https://developer.mozilla.org/en-US/docs/Web/Web_Components">web component</a>.</dt>
+			<dt>A template reference variable is declared by <br> prefixing the variable with <code>#</code>.</dt>
+			<dt>It can be accessed anywhere in the entire template.</dt>
+		</dl>
+	</section>
+	<section><h3>Template Reference Variables - examples</h3>
+		<pre><code rel="components.component.html" class="html">
+			&lt;section&gt;
+				&lt;h2&gt;Template reference variables&lt;/h2&gt;
+				&lt;input #userName placeholder=&quot;enter a user name&quot;&gt;
+				&lt;button (click)=&quot;getUserName(userName.value)&quot;&gt;Get UserName&lt;/button&gt;
+			&lt;/section&gt;
+		</code></pre>
+		<pre><code rel="components.component.ts" class="typescript">
+			import { Component, OnInit } from '@angular/core';
 
-      @Component({
-        selector: 'app-components',
-        templateUrl: './components.component.html',
-        styleUrls: ['./components.component.css']
-      })
-      export class ComponentsComponent implements OnInit {
+			@Component({
+				selector: 'app-components',
+				templateUrl: './components.component.html',
+				styleUrls: ['./components.component.css']
+			})
+			export class ComponentsComponent implements OnInit {
 
-        constructor() { }
+				constructor() { }
 
-        ngOnInit() {
-        }
+				ngOnInit() {
+				}
 
-        getUserName(data) {
-          console.log(data);
-        }
-      }
-    </code></pre>
-  </section>
+				getUserName(data) {
+					console.log(data);
+				}
+			}
+		</code></pre>
+	</section>
 </section>
 
 
