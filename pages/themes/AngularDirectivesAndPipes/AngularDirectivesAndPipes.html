@@ -149,14 +149,15 @@
       <pre><code rel="Asteric Notation" class="html">
         &lt;h2 *ngIf=&quot;true&quot;&gt;shown&lt;/h2&gt;
       </code></pre>
-      <pre><code rel="<ng-template> wrapping" class="html">
-        <ng-template [ngIf]="true">
+      <pre><code rel="<ng-template> wrapping" class="html" data-noescape>
+        &lt;ng-template [ngIf]=&quot;true&quot;&gt;
           &lt;h2&gt;shown&lt;/h2&gt;
-        </ng-template>
+        &lt;/ng-template&gt;
       </code></pre>
       <dd>The translation is according to the Angular's <a href="https://angular.io/guide/structural-directives#microsyntax">microsyntax</a>.</dd>
-    </dl>
-    <p class="note">More on property bindings (<code>[ngif]=""</code>) will be discused in "Data and Events Bindings" theme.</p>
+      <dt>More on property bindings (<code>[ngIf]=""</code>) is discused in "Data and Events Bindings" theme.</dt>
+      <dt class="note">You may apply only one structural directive to an element. (<a href="https://angular.io/guide/structural-directives#one-structural-directive-per-host-element">read more...</a>)</dt>
+    </dl>    
   </section>
   <section><h3><code>NgIf</code></h3>
     <pre><code rel="Syntax" class="bash">
@@ -197,6 +198,15 @@
       }
     </code></pre>
   </section>
+  <section><h3>NgIf - example as guard against null values</h3>
+    <pre><code rel="JS" class="js">
+      <!-- what will happens if items[0] did not exists? -->
+      <li  *ngIf="items[0].content">{{items[0].content}}</li>
+
+      <!-- next element want be rendered and no error would be thrown if items[5] did not exists -->
+      <li  *ngIf="items[5]">{{items[5].content}}</li>
+    </code></pre>
+  </section>
   <section><h3>ngIf; then; else</h3>
     <pre><code rel="HTML" class="html">
       <div *ngIf="isValid;then thenBlock else elseBlock">here is ignored</div>
@@ -228,16 +238,16 @@
       <dt>Allows to repeat a given DOM element and pass an element of the array (iterable object) on each iteration.</dt>
       <dt><code>ndFor</code> is useful for generating repeating content, such as a list items, dropdown options, and so on.</dt>
     </dl>
-    <pre><code rel="HTML" class="html">
-      <ul *ngFor="let item of [1,2,3]">
-        <li>item {{item}}</li>
-      </ul>
-    </code></pre>
-    <pre><code rel="Output" class="bash" data-noescape>
-      . item 1
-      . item 2
-      . item 3
-    </code></pre>
+    <pre><code rel="HTML" class="html" data-noescape>
+      &lt;ul&gt;
+        &lt;li *ngFor=&quot;let item of [1,2,3]&quot;&gt;item {{item}}&lt;/li&gt;
+      &lt;/ul&gt;
+
+      &lt;!-- that will not generate 1, but 3 UL containers  --&gt;
+      &lt;ul *ngFor=&quot;let item of [1,2,3]&quot;&gt;
+        &lt;li&gt;item {{item}}&lt;/li&gt;
+      &lt;/ul&gt;
+    </code></pre>   
   </section>
   <section><h3><code>ngFor - example</code></h3>
     <pre><code rel="directives.component.html" class="html">
@@ -371,9 +381,10 @@
       <dt>Or, you can create your own class with @Pipe annotation and:</dt>
       <dd>the class must implement the PipeTransform interface</dd>
       <dd>imports the Pipe and PipeTransform</dd>
+      <dt>Reference: <a href="https://angular.io/guide/pipes#custom-pipes">custom-pipes @angular.io</a></dt>
     </dl>
   </section>
-  <section><h3>example</h3>
+  <!-- <section><h3>example</h3>
     <pre><code rel="TS" class="typescript">
       import { Pipe, PipeTransform } from '@angular/core';
 
@@ -388,6 +399,24 @@
 
       }
     </code></pre>
+  </section> -->
+</section>
+
+<section><h1>Task</h1></section>
+<section><h2>Task</h2>
+  <section>
+    <dl class="fa" style="width: 100%">
+      <dt>Generate a <code>fruit_list</code> component and set next JSON data as class attribute:</dt>      
+      <pre><code rel="JS" class="js">
+        fruits =  [
+          {content: "Apples", checked: false },
+          {content: "Oranges", checked: true },
+          {content: "Bananas", checked: false },
+        ];
+      </code></pre>
+      <dt>Represent that information in the component template, using <code>*ngIf</code>, such that the page look like:</dt>
+      <a href="images/task_fruits_checkboxes_result.png"><img src="images/task_fruits_checkboxes_result.png"></a>
+    </dl>
   </section>
 </section>
 
